@@ -29,11 +29,13 @@ public class CorsoDAO {
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
-
+				Corso c = new Corso(rs.getString("codins"),rs.getInt("crediti"),rs.getString("nome"),rs.getInt("pd"));
+				
+                corsi.add(c);
 				// Crea un nuovo JAVA Bean Corso
 				// Aggiungi il nuovo Corso alla lista
 			}
-
+            
 			return corsi;
 
 		} catch (SQLException e) {
@@ -41,6 +43,9 @@ public class CorsoDAO {
 			throw new RuntimeException("Errore Db");
 		}
 	}
+	
+
+	
 
 	/*
 	 * Dato un codice insegnamento, ottengo il corso
