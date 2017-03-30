@@ -51,7 +51,7 @@
             </HBox>
             <HBox>
                <children>
-                  <Button fx:id="btnCercaIscrittiCorso" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#doCercaIscrittiCorso" text="Cerca iscritti corso">
+                  <Button fx:id="btnCercaIscrittiCorso" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#doCercaIscrittiCorso" onDragDone="#doCercaNome" onMouseClicked="#doCercaNome" onMousePressed="#doCercaNome" text="Cerca iscritti corso">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
@@ -69,7 +69,7 @@
                         <Insets />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="btnTrova" mnemonicParsing="false" onAction="#doCercaNome" text="Button" />
+                  <Button fx:id="btnTrova" mnemonicParsing="false" onAction="#doCercaNome" text="Trova" />
                   <TextField fx:id="txtNome" editable="false" promptText="Nome..." />
                   <TextField fx:id="txtCognome" editable="false" promptText="Cognome..." />
                </children>
