@@ -44,7 +44,7 @@ public class SegreteriaStudentiController {
 
     @FXML
     private Button btnTrova;
-
+    
     @FXML
     private TextField txtNome;;
 
@@ -65,17 +65,38 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doCercaCorsi(ActionEvent event) {
-
+    String matricola= txtMatricola.getText();  
+    if(model.matricolaCoretta(matricola)){
+    	txtResult.setText(model.CorsiPerStudente(matricola));
+    	if(txtResult.getText().compareTo("")==0){
+    		txtResult.setText("matricola "+matricola+" non è iscritta in nessun corso");
+    	
+          }
+	
+    }
+    else{
+    	txtResult.appendText("matricola non valida o inesistente\n");
+    	}
+    	
+    	
+    	
+    	
+    	
     }
 
     @FXML
     void doCercaIscrittiCorso(ActionEvent event) {
     	String corso= comboCorso.getValue();
     	if(corso.compareTo("")==0){
-    		txtResult.setText("Inserire un corso");	
+    		txtResult.appendText("Inserire un corso\n");
+    		return;
     	}
     	else{
     		txtResult.setText(model.StudentiIscritti(corso));
+    		if(txtResult.getText().compareTo("")==0){
+        	txtResult.appendText("nessuno studente è iscritto al corso "+corso+".\n");
+        	}
+        	
     	}
 
     }
@@ -84,12 +105,12 @@ public class SegreteriaStudentiController {
     void doCercaNome(ActionEvent event) {
  	
     	String matricola=txtMatricola.getText();
-    	if(model.findStudentePerMatricola(matricola)!=null){
+    	if(model.matricolaCoretta(matricola)){
     	txtNome.setText(model.cercaNomePerMatricola(matricola));
     	txtCognome.setText(model.cercaCognomePerMatricola(matricola));
     	}
     	else{
-    		txtResult.appendText("matricola "+matricola+" non trovata.");
+    		txtResult.appendText("matricola "+matricola+" non trovata.\n");
     	}
     	
  
@@ -97,6 +118,24 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doIscrivi(ActionEvent event) {
+    	String matricola=txtMatricola.getText();
+    	String nomeCorso= comboCorso.getValue();
+    	if(model.matricolaCoretta(matricola)==false){
+    		txtResult.appendText("matricola non valida\n");
+    		return;
+    	}
+    	if(nomeCorso.compareTo("")==0){
+    		txtResult.appendText("inserire un corso\n");
+    		return;
+    	}
+    	if(txtNome.getText().compareTo("")==0||txtCognome.getText().compareTo("")==0){
+    		txtResult.appendText("inserire nome e cognome dello studente da iscrivere\n");
+    		return;
+    	}
+    	
+    	txtResult.setText(model.IscriviStudenteACorso(matricola,nomeCorso));
+    	
+    	
 
     }
 

@@ -36,7 +36,7 @@ public void setCognome(String cognome) {
 
 @Override
 public String toString() {
-	return "Studente [matricola=" + matricola + ", nome=" + nome + ", cognome=" + cognome + ", cds=" + cds + "]";
+	return matricola + "             " + nome + "              " + cognome + "           " + cds;
 }
 public Studente(String  matricola, String cognome, String nome, String cds) {
 	super();

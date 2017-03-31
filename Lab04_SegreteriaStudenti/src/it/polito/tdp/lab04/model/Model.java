@@ -3,6 +3,7 @@ package it.polito.tdp.lab04.model;
 import java.util.*;
 
 import it.polito.tdp.lab04.DAO.CorsoDAO;
+import it.polito.tdp.lab04.DAO.IscrizioneDAO;
 import it.polito.tdp.lab04.DAO.StudenteDAO;
 
 public class Model {
@@ -55,7 +56,66 @@ public class Model {
 	   return result;
 		
 	}
+
+
+
+
+
+
+	public String CorsiPerStudente(String matricola) {
+		CorsoDAO cDAO = new CorsoDAO();
+		 String result="";
+		for(Corso c:cDAO.findCorsiPerMatricola(matricola)){
+			result+=c.toString()+"\n";
+		}
+		
+		
+		return result;
+	}
 	
+	
+	
+	public boolean matricolaCoretta(String matricola){
+		boolean bool=true;
+		for(char c: matricola.toCharArray()){
+			if(c<48||c>57){
+				bool=false;
+			}
+		}
+		
+		
+		if(findStudentePerMatricola(matricola)==null||matricola.length()!=6||bool==false)
+		return false;
+		
+		return true;
+		
+	}
+
+
+
+
+
+
+	public String IscriviStudenteACorso(String matricola, String nomeCorso) {
+		
+		CorsoDAO cDAO = new CorsoDAO();
+		String codiceCorso=cDAO.findCodicePerNomeCorso(nomeCorso);
+		
+		IscrizioneDAO iDAO = new IscrizioneDAO();
+		if(iDAO.findIscrizione(matricola,codiceCorso)==false){
+	     iDAO.InsertStudenteACorso(matricola,codiceCorso);
+		
+		return "studente iscritto correttamente\n";
+		
+		}
+		else{
+		
+		return "studente gia iscritto al corso\n";
+		}
+		
+		
+		
+	}
 
 	
 	
